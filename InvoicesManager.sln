@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoicesManager.Api", "InvoicesManager.Api\InvoicesManager.Api.csproj", "{3A52320E-8364-40F9-B3B9-D8A45E278CB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoicesManager.Api", "InvoicesManager.Api\InvoicesManager.Api.csproj", "{3A52320E-8364-40F9-B3B9-D8A45E278CB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoicesManager.Infrastructure", "InvoicesManager.Infrastructure\InvoicesManager.Infrastructure.csproj", "{3237F5BD-2368-4B2F-8145-CE2AD6A6F42C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoicesManager.Core", "InvoicesManager.Core\InvoicesManager.Core.csproj", "{8E811FE2-5A84-47A1-A21F-5FAB99A63701}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{3A52320E-8364-40F9-B3B9-D8A45E278CB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A52320E-8364-40F9-B3B9-D8A45E278CB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A52320E-8364-40F9-B3B9-D8A45E278CB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3237F5BD-2368-4B2F-8145-CE2AD6A6F42C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3237F5BD-2368-4B2F-8145-CE2AD6A6F42C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3237F5BD-2368-4B2F-8145-CE2AD6A6F42C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3237F5BD-2368-4B2F-8145-CE2AD6A6F42C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E811FE2-5A84-47A1-A21F-5FAB99A63701}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E811FE2-5A84-47A1-A21F-5FAB99A63701}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E811FE2-5A84-47A1-A21F-5FAB99A63701}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E811FE2-5A84-47A1-A21F-5FAB99A63701}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
