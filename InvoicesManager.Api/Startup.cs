@@ -1,6 +1,8 @@
 ﻿using InvoicesManager.Api.Filters;
 using InvoicesManager.Core.Infrastructure;
+using InvoicesManager.Core.Invoices.Commands.CreateInvoice;
 using InvoicesManager.Infrastructure.Data;
+using InvoicesManager.Infrastructure.Data.Repositories;
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetCore.AutoRegisterDi;
+using System.Reflection;
 
 namespace InvoicesManager.Api
 {
@@ -40,10 +43,10 @@ namespace InvoicesManager.Api
 
         private void AddRepositories(IServiceCollection services)
         {
-            //services.RegisterAssemblyPublicNonGenericClasses(
-            //       typeof(InvoiceRepository).GetTypeInfo().Assembly)
-            //   .Where(c => c.Name.EndsWith("Repository"))
-            //   .AsPublicImplementedInterfaces();
+            services.RegisterAssemblyPublicNonGenericClasses(
+                   typeof(InvoiceRepository).GetTypeInfo().Assembly)
+               .Where(c => c.Name.EndsWith("Repository"))
+               .AsPublicImplementedInterfaces();
         }
 
         private void RegisterMediatR(IServiceCollection services)
@@ -51,7 +54,7 @@ namespace InvoicesManager.Api
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-            //services.AddMediatR(typeof(GetVisitQueryHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(CreateInvoiceCommandHandler).GetTypeInfo().Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
