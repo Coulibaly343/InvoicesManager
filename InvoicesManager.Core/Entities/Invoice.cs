@@ -29,6 +29,14 @@ namespace InvoicesManager.Core.Entities
             UpdatedAt = DateTime.UtcNow;
         }
 
+        public void Update(string name, string saleDate, string userEmail, string receiverEmail)
+        {
+            Name = name;
+            SaleDate = saleDate;
+            UserEmail = userEmail;
+            ReceiverEmail = receiverEmail;
+        }
+
         public void AddProduct(Product product)
         {
             Products.Add(product);

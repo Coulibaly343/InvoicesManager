@@ -18,5 +18,16 @@
             IsPayed = isPayed;
         }
 
+        public void Update(string name, string quantity, double price, bool isPayed)
+        {
+            Name = name;
+            Quantity = quantity;
+            Price = price;
+            IsPayed = isPayed;
+        }
+
     }
 }
+
+
+
