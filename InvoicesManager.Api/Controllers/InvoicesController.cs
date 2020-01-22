@@ -1,4 +1,5 @@
 ﻿using InvoicesManager.Core.Invoices.Commands.CreateInvoice;
+using InvoicesManager.Core.Invoices.Queries.GetAllInvoices;
 using InvoicesManager.Core.Invoices.Queries.GetInvoice;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -26,9 +27,26 @@ namespace InvoicesManager.Api.Controllers
         }
 
         /// <summary>
+        /// Get invoice Id
+        /// </summary>
+        /// <param name="id">Id of the user </param>
+        /// <returns>Invoice</returns>
+        /// <response code="200">Invoice has been returned successfully.</response>
+        /// <response code="404">Requested Invoice not found.</response>
+        /// <response code="500">Getting Invoice failed.</response>
+        [HttpGet("all/{userId}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> GetAll(int userId)
+        {
+            var invoice = await Mediator.Send(new GetAllInvoicesQuery { UserId = userId });
+            return Ok(invoice);
+        }
+
+        /// <summary>
         /// Create inovice
         /// </summary>
-        /// <param name="command">Invoice object</param>
         /// <returns>Id </returns>
         /// <response code="201">Invoice has been created successfully.</response>
         /// <response code="400">Invoice hasn't been created successfully.</response>

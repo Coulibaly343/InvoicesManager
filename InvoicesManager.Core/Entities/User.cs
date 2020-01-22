@@ -1,16 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace InvoicesManager.Core.Entities
 {
     public class User : BaseEntity
     {
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Address { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public ICollection<Invoice> Invoices { get; set; }
+        public string Name { get; private set; }
+        public string Surname { get; private set; }
+        public string Address { get; private set; }
+        public string Email { get; private set; }
+        public byte[] PasswordHash { get; private set; }
+        public byte[] PasswordSalt { get; private set; }
+        public ICollection<Invoice> Invoices { get; private set; }
+       
+        public User()
+        {
+
+        }
 
         public User(
             string name,
@@ -23,7 +28,17 @@ namespace InvoicesManager.Core.Entities
             Surname = surname;
             Address = address;
             Email = email;
-            Password = password;
+            CreatePasswordHash(password);
         }
+
+        private void CreatePasswordHash(string password)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            {
+                PasswordSalt = hmac.Key;
+                PasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+        }
+
     }
 }

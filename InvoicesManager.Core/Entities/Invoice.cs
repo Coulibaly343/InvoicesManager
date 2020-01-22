@@ -5,23 +5,25 @@ namespace InvoicesManager.Core.Entities
 {
     public class Invoice : BaseEntity
     {
-        public string Name { get; set; }
-        public string SaleDate { get; set; }
-        public int UserId { get; set; }
-        public User CreatedBy { get; set; }
-        public string UserEmail { get; set; }
-        public string ReceiverEmail { get; set; }
+        public string Name { get; private set; }
+        public string SaleDate { get; private set; }
+        public int UserId { get; private set; }
+        public User CreatedBy { get; private set; }
+        public string UserEmail { get; private set; }
+        public string ReceiverEmail { get; private set; }
         public ICollection<Product> Products { get; set; }
 
         public Invoice(
             string name,
             string saleDate,
             string userEmail,
+            int userId,
             string receiverEmail)
         {
             Name = name;
             SaleDate = saleDate;
             UserEmail = userEmail;
+            UserId = userId;
             ReceiverEmail = receiverEmail;
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;

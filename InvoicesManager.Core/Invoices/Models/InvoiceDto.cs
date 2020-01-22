@@ -1,10 +1,10 @@
-﻿using InvoicesManager.Core.Products.Models;
-using MediatR;
+﻿using InvoicesManager.Core.Entities;
+using InvoicesManager.Core.Products.Models;
 using System.Collections.Generic;
 
-namespace InvoicesManager.Core.Invoices.Commands.CreateInvoice
+namespace InvoicesManager.Core.Invoices.Models
 {
-    public class CreateInvoiceCommand : IRequest<int>
+    public class InvoiceDto
     {
         public string Name { get; set; }
         public string SaleDate { get; set; }

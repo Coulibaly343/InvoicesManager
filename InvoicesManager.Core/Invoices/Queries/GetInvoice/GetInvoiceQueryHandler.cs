@@ -1,4 +1,5 @@
-﻿using InvoicesManager.Core.Entities;
+﻿using AutoMapper;
+using InvoicesManager.Core.Entities;
 using InvoicesManager.Core.Exceptions;
 using InvoicesManager.Core.Interfaces.Repositories;
 using InvoicesManager.Core.Invoices.Models;
@@ -8,30 +9,27 @@ using System.Threading.Tasks;
 
 namespace InvoicesManager.Core.Invoices.Queries.GetInvoice
 {
-    public class GetInvoiceQueryHandler : IRequestHandler<GetInvoiceQuery, InvoiceModel>
+    public class GetInvoiceQueryHandler : IRequestHandler<GetInvoiceQuery, InvoiceDto>
     {
         private readonly IInvoiceRepository __invoiceRepository;
+        private readonly IMapper _mapper;
 
-        public GetInvoiceQueryHandler(IInvoiceRepository invoiceRepository)
+        public GetInvoiceQueryHandler(IInvoiceRepository invoiceRepository, IMapper mapper)
         {
             __invoiceRepository = invoiceRepository;
+            _mapper = mapper;
         }
 
-        public async Task<InvoiceModel> Handle(GetInvoiceQuery request, CancellationToken cancellationToken)
+        public async Task<InvoiceDto> Handle(GetInvoiceQuery request, CancellationToken cancellationToken)
         {
-            var invoice = await __invoiceRepository.GetByIdAsync(request.Id);
+            var invoice = await __invoiceRepository.GetWithProductsByIdAsync(request.Id);
 
             if (invoice == null)
             {
                 throw new NotFoundException(nameof(Invoice), request.Id);
             }
 
-
-            return new InvoiceModel()
-            {
-                Name = invoice.Name
-            };
-    
+            return _mapper.Map<InvoiceDto>(invoice);
         }
     }
 }

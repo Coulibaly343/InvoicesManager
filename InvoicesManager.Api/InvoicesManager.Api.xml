@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InvoicesManager.Api</name>
+    </assembly>
+    <members>
+        <member name="M:InvoicesManager.Api.Controllers.InvoicesController.Get(System.Int32)">
+            <summary>
+            Get invoice Id
+            </summary>
+            <param name="id">Id of the invoice to return</param>
+            <returns>Invoice</returns>
+            <response code="200">Invoice has been returned successfully.</response>
+            <response code="404">Requested Invoice not found.</response>
+            <response code="500">Getting Invoice failed.</response>
+        </member>
+        <member name="M:InvoicesManager.Api.Controllers.InvoicesController.GetAll(System.Int32)">
+            <summary>
+            Get invoice Id
+            </summary>
+            <param name="id">Id of the invoice to return</param>
+            <returns>Invoice</returns>
+            <response code="200">Invoice has been returned successfully.</response>
+            <response code="404">Requested Invoice not found.</response>
+            <response code="500">Getting Invoice failed.</response>
+        </member>
+        <member name="M:InvoicesManager.Api.Controllers.InvoicesController.CreateInvoice(InvoicesManager.Core.Invoices.Commands.CreateInvoice.CreateInvoiceCommand)">
+            <summary>
+            Create inovice
+            </summary>
+            <param name="command">Invoice object</param>
+            <returns>Id </returns>
+            <response code="201">Invoice has been created successfully.</response>
+            <response code="400">Invoice hasn't been created successfully.</response>
+            <response code="500">Creating invoice failed.</response>
+        </member>
+        <member name="M:InvoicesManager.Api.Controllers.UsersController.RegisterUser(InvoicesManager.Core.Users.Commands.CreateUser.CreateUserCommand)">
+            <summary>
+            Register User
+            </summary>
+            <param name="command">User command</param>
+            <returns>Created at action result</returns>
+            <response code="201">User has been created successfully.</response>
+            <response code="400">User already exisits.</response>
+            <response code="500">User creation failed.</response>
+        </member>
+        <member name="M:InvoicesManager.Api.Controllers.UsersController.LoginUser(InvoicesManager.Core.Users.Commands.LoginUser.LoginUserCommand)">
+            <summary>
+            Login user
+            </summary>
+            <param name="command">Login user command</param>
+            <returns>UserDto </returns>
+            <response code="201">User has been returned successfully.</response>
+            <response code="400">User does not exists or password is incorrect.</response>
+            <response code="500">Obtaining user failed.</response>
+        </member>
+    </members>
+</doc>

@@ -12,7 +12,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetCore.AutoRegisterDi;
+using System;
+using System.IO;
 using System.Reflection;
+using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using InvoicesManager.Core.Extensions.AutoMapper;
 
 namespace InvoicesManager.Api
 {
@@ -32,12 +37,16 @@ namespace InvoicesManager.Api
             services.AddCors();
 
             ConfigureDatabase(services);
+            AddRepositories(services);
+            RegisterMediatR(services);
+            AddSettings(services);
+            AddSwagger(services);
         }
 
         private void ConfigureDatabase(IServiceCollection services)
         {
             services.AddDbContext<InvoicesManagerContext>(opt =>
-                    opt.UseSqlServer(Configuration.GetConnectionString("MsSqlDb"),
+                    opt.UseSqlServer(Configuration.GetConnectionString("MsSqlDatabase"),
                         b => b.MigrationsAssembly("InvoicesManager.Api")));
         }
 
@@ -57,6 +66,23 @@ namespace InvoicesManager.Api
             services.AddMediatR(typeof(CreateInvoiceCommandHandler).GetTypeInfo().Assembly);
         }
 
+        private void AddSettings(IServiceCollection services)
+        {
+            services.AddSingleton(AutoMapperConfig.Initialize());
+        }
+
+        private void AddSwagger(IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Invoices API", Version = "v1" });
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -73,6 +99,12 @@ namespace InvoicesManager.Api
             {
                 Migrate(serviceScope);
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("../swagger/v1/swagger.json", "Invoices API V1");
+            });
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseAuthentication();
             app.UseHttpsRedirection();
